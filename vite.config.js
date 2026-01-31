@@ -1,6 +1,8 @@
+import { defineConfig } from 'vite'
 import { resolve } from 'path'
 
-export default {
+export default defineConfig({
+    base: './', // oder '/repo-name/' für GitHub Pages
     root: resolve(__dirname, 'src'),
     build: {
         outDir: '../dist'
@@ -8,7 +10,6 @@ export default {
     server: {
         port: 8080
     },
-
     css: {
         preprocessorOptions: {
             scss: {
@@ -21,4 +22,4 @@ export default {
             },
         },
     },
-}
+})
