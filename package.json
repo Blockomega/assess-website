@@ -1,0 +1,30 @@
+{
+  "name": "assess-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blockomega/assess-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Blockomega/assess-website/issues"
+  },
+  "homepage": "https://github.com/Blockomega/assess-website#readme",
+  "devDependencies": {
+    "sass": "^1.97.3",
+    "vite": "^7.3.1"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8"
+  }
+}
