@@ -1,7 +1,8 @@
 import '../scss/custom.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-import { Tooltip, Toast, Popover } from 'bootstrap';
+import { } from 'bootstrap';
+
 import {
     getThemeClasses,
     applyThemeToPage,
@@ -52,7 +53,7 @@ function createMenu() {
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-fill"></i>
+                        <i class="bi bi-person-fill fs-5"></i>
                     </a>
                     <ul class="dropdown-menu ${classes.dropdown} dropdown-menu-end">
                         <li><hr class="dropdown-divider"></li>

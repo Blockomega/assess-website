@@ -39,9 +39,9 @@ export function applyThemeToPage(keepTransitioning = false) {
 
 export function updateThemeIcon(theme, iconElement) {
     if (theme === 'dark') {
-        iconElement.className = 'bi bi-moon-fill';
+        iconElement.className = 'bi bi-moon-fill fs-6';
     } else {
-        iconElement.className = 'bi bi-sun-fill';
+        iconElement.className = 'bi bi-sun-fill fs-5';
     }
 }
 
@@ -95,9 +95,9 @@ export function initThemeTransitions() {
         .theme-transitioning *,
         .theme-transitioning *::before,
         .theme-transitioning *::after {
-            transition: background-color 300ms ease-in-out, 
-                        color 300ms ease-in-out, 
-                        border-color 300ms ease-in-out !important;
+            transition: background-color 200ms ease-in-out, 
+                        color 200ms ease-in-out, 
+                        border-color 200ms ease-in-out !important;
         }
     `;
     document.head.appendChild(style);
