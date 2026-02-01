@@ -10,7 +10,8 @@ module.exports = defineConfig({
             input: {
                 main: resolve(__dirname, 'src/index.html'),
                 login: resolve(__dirname, 'src/login/index.html'),
-                register: resolve(__dirname, 'src/register/index.html')
+                register: resolve(__dirname, 'src/register/index.html'),
+                dashboard: resolve(__dirname, 'src/dashboard/index.html')
             }
         }
     },

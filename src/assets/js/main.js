@@ -8,12 +8,15 @@ import {
     initThemeToggle,
     initThemeTransitions
 } from './theme.js';
+import { isAuthenticated, getCurrentUser, logoutUser } from './pocketbase.js';
 
 export { getCurrentTheme };
 
 /* --- Menüfunktionen --- */
 
 function createMenu() {
+    const isLoggedIn = isAuthenticated();
+
     const nav = document.createElement('nav');
     nav.id = 'main-navbar';
     nav.className = 'navbar navbar-expand-lg w-60 mx-auto mt-3 rounded-4 align-items-center';
@@ -57,10 +60,16 @@ function createMenu() {
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-fill fs-5"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end" id="user-menu">
                         <li><hr class="dropdown-divider"></li>
+                        ${isLoggedIn ? `
+                        <li><a class="dropdown-item" href="/dashboard">Dashboard</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#" id="logout-button">Abmelden</a></li>
+                        ` : `
                         <li><a class="dropdown-item" href="/login">Anmelden</a></li>
                         <li><a class="dropdown-item" href="/register">Registrieren</a></li>
+                        `}
                         <li><hr class="dropdown-divider"></li>
                     </ul>
                 </li>
@@ -69,6 +78,20 @@ function createMenu() {
     </div>
     `;
     return nav;
+}
+
+/**
+ * Initialisiert den Logout-Button
+ */
+function initLogout() {
+    const logoutButton = document.querySelector('#logout-button');
+    if (logoutButton) {
+        logoutButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoutUser();
+            window.location.href = '/';
+        });
+    }
 }
 
 /* --- Initialisierungsfunktion --- */
@@ -80,4 +103,5 @@ export function initPage() {
     initThemeTransitions();
     applyTheme(getCurrentTheme());
     initThemeToggle();
+    initLogout();
 }

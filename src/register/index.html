@@ -10,47 +10,56 @@
     <div class="bg-body-secondary p-5 rounded-5 shadow-lg mx-auto" style="max-width: 500px;" id="main-content">
         <h2 class="text-start">Account erstellen</h2>
 
-        <div class="d-flex flex-row">
-            <label class="mt-4 me-2 text-start">Vorname
-                <input class="form-control form-control-md" name="vorname" type="text" placeholder="Max" required>
-            </label>
-            <label class="mt-4 text-start">Nachname
-                <input class="form-control form-control-md" name="nachname" type="text" placeholder="Mustermann" required>
-            </label>
-        </div>
-        <div>
-            <label class="mt-3 me-2 w-100 text-start">E-Mail
-                <input class="form-control form-control-md" name="email" type="email" placeholder="max@beispiel.de" required>
-            </label>
-        </div>
-        <div>
-            <label class="mt-3 me-2 w-100 text-start">Passwort
-                <input class="form-control form-control-md" name="password" type="password" placeholder="••••••••••••••••" required>
-            </label>
-        </div>
-        <div>
-            <label class="mt-3 me-2 w-100 text-start">Passwort bestätigen
-                <input class="form-control form-control-md" name="password_confirm" type="password" placeholder="••••••••••••••••" required>
-            </label>
-        </div>
+        <div id="message-container" class="mt-3"></div>
 
-        <div>
-            <button class="btn btn-primary mt-lg-4 w-100">Account erstellen</button>
-        </div>
+        <form id="register-form">
+            <div class="d-flex flex-row">
+                <label class="mt-4 me-2 text-start">Vorname
+                    <input class="form-control form-control-md" name="vorname" type="text" placeholder="Max" required>
+                </label>
+                <label class="mt-4 text-start">Nachname
+                    <input class="form-control form-control-md" name="nachname" type="text" placeholder="Mustermann" required>
+                </label>
+            </div>
+            <div>
+                <label class="mt-3 me-2 w-100 text-start">E-Mail
+                    <input class="form-control form-control-md" name="email" type="email" placeholder="max@beispiel.de" required>
+                </label>
+            </div>
+            <div>
+                <label class="mt-3 me-2 w-100 text-start">Passwort
+                    <input class="form-control form-control-md" name="password" type="password" placeholder="••••••••••••••••" required>
+                </label>
+            </div>
+            <div>
+                <label class="mt-3 me-2 w-100 text-start">Passwort bestätigen
+                    <input class="form-control form-control-md" name="password_confirm" type="password" placeholder="••••••••••••••••" required>
+                </label>
+            </div>
+
+            <div>
+                <button type="button" id="register-button" class="btn btn-primary mt-lg-4 w-100">Account erstellen</button>
+            </div>
+        </form>
 
         <div class="mt-4">
-            <p class="text-center mb-2">Account bereits vorhanen? <a class="text-primary" href="/login">Anmeldung</a></p>
+            <p class="text-center mb-2">Account bereits vorhanden? <a class="text-primary" href="/login">Anmeldung</a></p>
             <p class="text-center">Vereinsaccount benötigt? <a class="text-primary" href="/contact">Kontakt</a></p>
         </div>
     </div>
 </main>
 <script type="module">
-    import { initPage } from '../js/main.js';
+    import { initPage } from '../assets/js/main.js';
+    import { initRegisterPage } from '../assets/js/register.js';
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initPage);
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage();
+            initRegisterPage();
+        });
     } else {
         initPage();
+        initRegisterPage();
     }
 </script>
 </body>

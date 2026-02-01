@@ -19,7 +19,7 @@ $border-color: rgba(0, 0, 0, 0.15);
 $navbar-dark-bg: $black;
 $navbar-light-bg: $white;
 
-@import "bootstrap/scss/bootstrap";
+@import "../../../node_modules/bootstrap/scss/bootstrap";
 
 /* Custom Overrides */
 
