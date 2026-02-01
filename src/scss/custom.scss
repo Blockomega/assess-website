@@ -1,9 +1,50 @@
+// Custom Farben
 $primary: #1478c8;
 $black: #0f0f0f;
 $dark: #202020;
 $white: #f4f4f4;
 $light: #dfdfdf;
 
+// Bootstrap Theme-Variablen überschreiben (Dark Mode)
+$body-bg-dark: $dark;
+$body-color-dark: $white;
+$border-color-dark: rgba(255, 255, 255, 0.15);
+
+// Bootstrap Theme-Variablen überschreiben (Light Mode)
+$body-bg: $light;
+$body-color: $dark;
+$border-color: rgba(0, 0, 0, 0.15);
+
+// Navbar Hintergrundfarben für Dark/Light
+$navbar-dark-bg: $black;
+$navbar-light-bg: $white;
+
 @import "bootstrap/scss/bootstrap";
 
+/* Custom Overrides */
+
 .w-60 { width: 60% !important; }
+
+.form-control::placeholder { color: #909090 !important; }
+.form-control:focus { box-shadow: none !important; }
+
+/* Theme-spezifische Anpassungen */
+[data-bs-theme="dark"] {
+  .navbar {
+    background-color: $black !important;
+  }
+
+  .bg-body-secondary {
+    background-color: $black !important;
+  }
+}
+
+[data-bs-theme="light"] {
+  .navbar {
+    background-color: $white !important;
+  }
+
+  .bg-body-secondary {
+    background-color: $white !important;
+  }
+}

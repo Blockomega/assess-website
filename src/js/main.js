@@ -2,22 +2,24 @@ import '../scss/custom.scss';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 import { } from 'bootstrap';
-
 import {
-    getThemeClasses,
-    applyThemeToPage,
+    getCurrentTheme,
+    applyTheme,
     initThemeToggle,
     initThemeTransitions
 } from './theme.js';
 
+export { getCurrentTheme };
+
+/* --- Menüfunktionen --- */
+
 function createMenu() {
-    const classes = getThemeClasses();
     const nav = document.createElement('nav');
     nav.id = 'main-navbar';
-    nav.className = `navbar navbar-expand-lg w-60 mx-auto mt-3 rounded-4 ${classes.navbar} align-items-center`;
+    nav.className = 'navbar navbar-expand-lg w-60 mx-auto mt-3 rounded-4 align-items-center';
     nav.innerHTML = `
     <div class="container-fluid">
-        <a class="navbar-brand d-flex align-items-center" href="#">
+        <a class="navbar-brand d-flex align-items-center" href="/">
             <i class="bi bi-gear-fill"></i>
             <p class="me-2"></p>
             <h3 class="m-0">In Arbeit</h3>
@@ -33,7 +35,7 @@ function createMenu() {
                 <li class="nav-item"><a class="nav-link text-primary d-flex align-items-center" aria-current="page" href="#">Wettkämpfe</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Programm</a>
-                    <ul class="dropdown-menu ${classes.dropdown}">
+                    <ul class="dropdown-menu">
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Informationen</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -55,10 +57,10 @@ function createMenu() {
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-fill fs-5"></i>
                     </a>
-                    <ul class="dropdown-menu ${classes.dropdown} dropdown-menu-end">
+                    <ul class="dropdown-menu dropdown-menu-end">
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Anmelden</a></li>
-                        <li><a class="dropdown-item" href="#">Registrieren</a></li>
+                        <li><a class="dropdown-item" href="/login">Anmelden</a></li>
+                        <li><a class="dropdown-item" href="/register">Registrieren</a></li>
                         <li><hr class="dropdown-divider"></li>
                     </ul>
                 </li>
@@ -69,38 +71,13 @@ function createMenu() {
     return nav;
 }
 
-function initMenu() {
+/* --- Initialisierungsfunktion --- */
+
+export function initPage() {
     const nav = createMenu();
     document.body.prepend(nav);
 
     initThemeTransitions();
-    applyThemeToPage();
-    initThemeToggle(updateMenuTheme);
-}
-
-function updateMenuTheme(keepTransitioning = false) {
-    let nav = document.getElementById('main-navbar');
-    if (!nav) {
-        nav = createMenu();
-        document.body.prepend(nav);
-    }
-
-    const classes = getThemeClasses();
-    ['navbar-light', 'navbar-dark', 'bg-white', 'bg-black', 'bg-light', 'bg-dark', 'bg-primary']
-        .forEach(c => nav.classList.remove(c));
-    classes.navbar.split(/\s+/).forEach(c => c && nav.classList.add(c));
-
-    nav.querySelectorAll('.dropdown-menu').forEach(dl => {
-        dl.classList.remove('dropdown-menu-dark');
-        if (classes.dropdown.includes('dropdown-menu-dark')) dl.classList.add('dropdown-menu-dark');
-    });
-
-    applyThemeToPage(keepTransitioning);
-}
-
-
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMenu);
-} else {
-    initMenu();
+    applyTheme(getCurrentTheme());
+    initThemeToggle();
 }

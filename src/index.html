@@ -4,14 +4,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Website im Aufbau</title>
-    <script type="module" src="./js/main.js"></script>
 </head>
 <body>
 <main class="d-flex flex-grow-1 align-items-center justify-content-center">
-    <div class="container text-center" id="main-content">
+    <div class="container w-auto p-3 rounded-4" id="container">
         <h1>Work in Progress...</h1>
         <p class="mt-4">Diese Seite befindet sich derzeit noch im Aufbau</p>
     </div>
 </main>
+<script type="module">
+    import { initPage } from './js/main.js';
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPage);
+    } else {
+        initPage();
+    }
+</script>
 </body>
 </html>

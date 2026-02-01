@@ -1,46 +1,20 @@
-export function getThemeClasses() {
-    const theme = localStorage.getItem('theme') || 'dark';
-
-    if (theme === 'light') {
-        return {
-            navbar: 'navbar-light bg-white',
-            dropdown: 'dropdown-menu',
-            body: 'bg-light text-dark',
-            container: 'text-dark',
-        };
-    } else {
-        return {
-            navbar: 'navbar-dark bg-black',
-            dropdown: 'dropdown-menu-dark',
-            body: 'bg-dark text-light',
-            container: 'text-light',
-        };
-    }
-}
-
 export function getCurrentTheme() {
     return localStorage.getItem('theme') || 'dark';
 }
 
-export function applyThemeToPage(keepTransitioning = false) {
-    const classes = getThemeClasses();
+export function applyTheme(theme) {
+    // Bootstrap's natives Theme-System nutzen
+    document.documentElement.setAttribute('data-bs-theme', theme);
+    localStorage.setItem('theme', theme);
 
-    // Body-Klassen setzen (theme-transitioning beibehalten falls aktiv)
-    const baseClasses = 'd-flex flex-column min-vh-100';
-    const transitionClass = keepTransitioning ? 'theme-transitioning' : '';
-    document.body.className = `${baseClasses} ${classes.body} ${transitionClass}`.trim();
-
-    // Gradient als Hintergrund setzen
-    document.body.style.background = classes.gradient;
-
-    // Container-Klassen setzen
-    const container = document.getElementById('main-content');
-    if (container) {
-        container.className = `container text-center ${classes.container}`;
-    }
+    // Body Klassen für Layout
+    document.body.className = 'd-flex flex-column min-vh-100';
 }
 
-export function updateThemeIcon(theme, iconElement) {
+export function updateThemeIcon(theme) {
+    const iconElement = document.getElementById('theme-icon');
+    if (!iconElement) return;
+
     if (theme === 'dark') {
         iconElement.className = 'bi bi-moon-fill fs-6';
     } else {
@@ -48,61 +22,52 @@ export function updateThemeIcon(theme, iconElement) {
     }
 }
 
-export function initThemeToggle(updateMenuCallback) {
+export function initThemeToggle() {
     const themeToggle = document.getElementById('theme-toggle');
-    const themeIcon = document.getElementById('theme-icon');
-    const html = document.documentElement;
+    if (!themeToggle) return;
 
-    // Gespeichertes Theme laden oder Dark Mode als Standard verwenden
     const savedTheme = getCurrentTheme();
-    html.setAttribute('data-theme', savedTheme);
-    updateThemeIcon(savedTheme, themeIcon);
+    applyTheme(savedTheme);
+    updateThemeIcon(savedTheme);
 
-    // Theme-Toggle Event Listener
     themeToggle.addEventListener('click', (e) => {
         e.preventDefault();
-        const currentTheme = html.getAttribute('data-theme');
+        const currentTheme = getCurrentTheme();
         const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-        // Transition-Klasse ZUERST hinzufügen
-        document.body.classList.add('theme-transitioning');
+        // Transition-Klasse für smooth animation
+        document.documentElement.classList.add('theme-transitioning');
 
-        // requestAnimationFrame verwenden für smooth transition
-        requestAnimationFrame(() => {
-            html.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+        applyTheme(newTheme);
+        updateThemeIcon(newTheme);
 
-            // Menu mit neuen Theme-Klassen neu erstellen (transition beibehalten)
-            updateMenuCallback(true);
-
-            // Icon aktualisieren (neues Element nach Menu-Update)
-            const newThemeIcon = document.getElementById('theme-icon');
-            updateThemeIcon(newTheme, newThemeIcon);
-
-            // Transition-Klasse nach 300ms entfernen
-            setTimeout(() => {
-                document.body.classList.remove('theme-transitioning');
-            }, 300);
-
-            // Event Listener neu initialisieren
-            initThemeToggle(updateMenuCallback);
-        });
+        setTimeout(() => {
+            document.documentElement.classList.remove('theme-transitioning');
+        }, 300);
     });
 }
 
-// Theme-Transitions als CSS hinzufügen
 export function initThemeTransitions() {
     const style = document.createElement('style');
     style.textContent = `
-        .theme-transitioning,
-        .theme-transitioning *,
-        .theme-transitioning *::before,
-        .theme-transitioning *::after {
-            transition: background 300ms ease-in-out,
-                        background-color 300ms ease-in-out,
+        /* Smooth transitions für Bootstrap Theme-Wechsel */
+        html.theme-transitioning,
+        html.theme-transitioning *,
+        html.theme-transitioning *::before,
+        html.theme-transitioning *::after {
+            transition: background-color 300ms ease-in-out,
                         color 300ms ease-in-out,
-                        border-color 300ms ease-in-out !important;
+                        border-color 300ms ease-in-out,
+                        box-shadow 300ms ease-in-out !important;
+        }
+        
+        /* Navbar spezifisch */
+        html.theme-transitioning .navbar {
+            transition: background-color 300ms ease-in-out,
+                        box-shadow 300ms ease-in-out !important;
         }
     `;
     document.head.appendChild(style);
 }
+
+
