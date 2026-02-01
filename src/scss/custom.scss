@@ -5,3 +5,7 @@ $white: #f4f4f4;
 $light: #dfdfdf;
 
 @import "bootstrap/scss/bootstrap";
+
+.w-60 {
+  width: 60% !important;
+}

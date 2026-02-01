@@ -6,14 +6,16 @@ export function getThemeClasses() {
             navbar: 'navbar-light bg-white',
             dropdown: 'dropdown-menu',
             body: 'bg-light text-dark',
-            container: 'bg-light text-dark'
+            container: 'text-dark',
+            gradient: 'linear-gradient(135deg, var(--bs-white), var(--bs-light))'
         };
     } else {
         return {
             navbar: 'navbar-dark bg-black',
             dropdown: 'dropdown-menu-dark',
             body: 'bg-dark text-light',
-            container: 'bg-dark text-light'
+            container: 'text-light',
+            gradient: 'linear-gradient(135deg, var(--bs-dark), var(--bs-black))'
         };
     }
 }
@@ -29,6 +31,9 @@ export function applyThemeToPage(keepTransitioning = false) {
     const baseClasses = 'd-flex flex-column min-vh-100';
     const transitionClass = keepTransitioning ? 'theme-transitioning' : '';
     document.body.className = `${baseClasses} ${classes.body} ${transitionClass}`.trim();
+
+    // Gradient als Hintergrund setzen
+    document.body.style.background = classes.gradient;
 
     // Container-Klassen setzen
     const container = document.getElementById('main-content');
@@ -95,9 +100,10 @@ export function initThemeTransitions() {
         .theme-transitioning *,
         .theme-transitioning *::before,
         .theme-transitioning *::after {
-            transition: background-color 200ms ease-in-out, 
-                        color 200ms ease-in-out, 
-                        border-color 200ms ease-in-out !important;
+            transition: background 300ms ease-in-out,
+                        background-color 300ms ease-in-out,
+                        color 300ms ease-in-out,
+                        border-color 300ms ease-in-out !important;
         }
     `;
     document.head.appendChild(style);

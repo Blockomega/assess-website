@@ -14,7 +14,7 @@ function createMenu() {
     const classes = getThemeClasses();
     const nav = document.createElement('nav');
     nav.id = 'main-navbar';
-    nav.className = `navbar navbar-expand-lg w-50 mx-auto mt-3 rounded-4 ${classes.navbar} align-items-center`;
+    nav.className = `navbar navbar-expand-lg w-60 mx-auto mt-3 rounded-4 ${classes.navbar} align-items-center`;
     nav.innerHTML = `
     <div class="container-fluid">
         <a class="navbar-brand d-flex align-items-center" href="#">
