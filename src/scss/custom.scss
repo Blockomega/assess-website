@@ -1,4 +1,7 @@
-@import "bootstrap/scss/bootstrap";
+$primary: #1478c8;
+$black: #0f0f0f;
+$dark: #202020;
+$white: #f2f2f2;
+$light: #e0e0e0;
 
-.bg-dark { background-color: #202020 !important; }
-.bg-black { background-color: #0f0f0f !important; }
+@import "bootstrap/scss/bootstrap";
