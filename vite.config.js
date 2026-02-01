@@ -1,11 +1,18 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
+const { defineConfig } = require('vite')
+const { resolve } = require('path')
 
-export default defineConfig({
-    base: './', // oder '/repo-name/' für GitHub Pages
+module.exports = defineConfig({
+    base: './',
     root: resolve(__dirname, 'src'),
     build: {
-        outDir: '../dist'
+        outDir: resolve(__dirname, 'dist'),
+        rollupOptions: {
+            input: {
+                main: resolve(__dirname, 'src/index.html'),
+                login: resolve(__dirname, 'src/login/index.html'),
+                register: resolve(__dirname, 'src/register/index.html')
+            }
+        }
     },
     server: {
         port: 8080
