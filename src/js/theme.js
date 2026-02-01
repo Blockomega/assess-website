@@ -7,7 +7,6 @@ export function getThemeClasses() {
             dropdown: 'dropdown-menu',
             body: 'bg-light text-dark',
             container: 'text-dark',
-            gradient: 'linear-gradient(135deg, var(--bs-white), var(--bs-light))'
         };
     } else {
         return {
@@ -15,7 +14,6 @@ export function getThemeClasses() {
             dropdown: 'dropdown-menu-dark',
             body: 'bg-dark text-light',
             container: 'text-light',
-            gradient: 'linear-gradient(135deg, var(--bs-dark), var(--bs-black))'
         };
     }
 }

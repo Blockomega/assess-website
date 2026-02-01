@@ -79,11 +79,21 @@ function initMenu() {
 }
 
 function updateMenuTheme(keepTransitioning = false) {
-    const oldNav = document.getElementById('main-navbar');
-    if (oldNav) {
-        const newNav = createMenu();
-        oldNav.replaceWith(newNav);
+    let nav = document.getElementById('main-navbar');
+    if (!nav) {
+        nav = createMenu();
+        document.body.prepend(nav);
     }
+
+    const classes = getThemeClasses();
+    ['navbar-light', 'navbar-dark', 'bg-white', 'bg-black', 'bg-light', 'bg-dark', 'bg-primary']
+        .forEach(c => nav.classList.remove(c));
+    classes.navbar.split(/\s+/).forEach(c => c && nav.classList.add(c));
+
+    nav.querySelectorAll('.dropdown-menu').forEach(dl => {
+        dl.classList.remove('dropdown-menu-dark');
+        if (classes.dropdown.includes('dropdown-menu-dark')) dl.classList.add('dropdown-menu-dark');
+    });
 
     applyThemeToPage(keepTransitioning);
 }
